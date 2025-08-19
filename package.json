@@ -4,16 +4,31 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vue-tsc -b && vite build",
-    "preview": "vite preview"
+    "dev:ssr": "cross-env NODE_ENV=development tsx --no-warnings server.ts",
+    "prod:ssr": "cross-env NODE_ENV=production tsx server.ts",
+    "build": "rimraf dist && npm run build:client && npm run build:server",
+    "build:client": "vite build --outDir dist/client --ssrManifest",
+    "build:server": "vite build --ssr src/entry-server.ts --outDir dist/server",
+    "pm2-start": "pm2 start ecosystem.config.cjs",
+    "pm2-logs": "pm2 logs web-app-seo",
+    "pm2-restart": "pm2 restart web-app-seo"
   },
   "dependencies": {
-    "vue": "^3.5.18"
+    "axios": "^1.11.0",
+    "express": "^5.1.0",
+    "tdesign-vue-next": "^1.15.3",
+    "vue": "^3.5.18",
+    "vue-router": "^4.5.1"
   },
   "devDependencies": {
+    "@types/express": "^5.0.3",
+    "@types/node": "^24.2.1",
     "@vitejs/plugin-vue": "^6.0.1",
     "@vue/tsconfig": "^0.7.0",
+    "cross-env": "^10.0.0",
+    "pm2": "^6.0.8",
+    "rimraf": "^6.0.1",
+    "tsx": "^4.20.4",
     "typescript": "~5.8.3",
     "vite": "^7.1.2",
     "vue-tsc": "^3.0.5"

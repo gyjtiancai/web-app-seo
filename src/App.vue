@@ -1,20 +1,57 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import { RouterView, useRouter } from "vue-router"
+// import HelloWorld from "./components/HelloWorld.vue"
+const router = useRouter()
+function goHome() {
+  router.push("/")
+}
+function goAbout() {
+  router.push("/about")
+}
 </script>
 
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <div class="nav">
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+    </div>
+
+    <div class="logos">
+      <t-button @click="goHome">Home</t-button>
+      <t-button @click="goAbout">About</t-button>
+    </div>
+
+    <!-- <HelloWorld msg="Vite + Vue" /> -->
+
+    <!-- 路由 -->
+    <RouterView />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
+<style>
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.nav {
+  padding: 2rem 0;
+}
+
+.nav a {
+  font-weight: bold;
+  color: #2c3e50;
+  margin: 0 0.5rem;
+  text-decoration: none;
+}
+
+.nav a.router-link-exact-active {
+  color: #42b983;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
